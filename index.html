@@ -1,1 +1,977 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أرت جاليري - معرض الفنون الرقمي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #f0f0f0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header Styles */
+        header {
+            background: rgba(10, 10, 25, 0.9);
+            padding: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo-icon {
+            font-size: 2.5rem;
+            color: #6c63ff;
+            animation: spin 20s linear infinite;
+        }
+        
+        .logo-text {
+            font-family: 'Scheherazade New', serif;
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #6c63ff, #ff6584);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+        
+        .nav-menu a {
+            color: #f0f0f0;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+            padding: 5px 0;
+        }
+        
+        .nav-menu a:hover {
+            color: #6c63ff;
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            background: #6c63ff;
+            bottom: 0;
+            right: 0;
+            transition: width 0.3s;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .header-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .btn {
+            padding: 10px 25px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+            border: none;
+        }
+        
+        .btn-login {
+            background: transparent;
+            color: #6c63ff;
+            border: 2px solid #6c63ff;
+        }
+        
+        .btn-login:hover {
+            background: #6c63ff;
+            color: #fff;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.4);
+        }
+        
+        .btn-signup {
+            background: linear-gradient(to right, #6c63ff, #ff6584);
+            color: white;
+        }
+        
+        .btn-signup:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(108, 99, 255, 0.5);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 100px 0;
+            background: radial-gradient(circle at top right, rgba(108, 99, 255, 0.2), transparent 50%),
+                        radial-gradient(circle at bottom left, rgba(255, 101, 132, 0.2), transparent 50%);
+        }
+        
+        .hero-content {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-title {
+            font-family: 'Scheherazade New', serif;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            background: linear-gradient(to right, #6c63ff, #ff6584, #6c63ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            background-size: 200% auto;
+            animation: gradient 3s linear infinite;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            color: #b0b0d0;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Featured Section */
+        .featured {
+            padding: 80px 0;
+            background: rgba(15, 15, 35, 0.7);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            margin-bottom: 50px;
+            color: #fff;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 5px;
+            background: linear-gradient(to right, #6c63ff, #ff6584);
+            bottom: -15px;
+            right: 50%;
+            transform: translateX(50%);
+            border-radius: 5px;
+        }
+        
+        .art-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        
+        .art-card {
+            background: rgba(25, 25, 45, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid rgba(108, 99, 255, 0.3);
+        }
+        
+        .art-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+        
+        .art-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .art-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .art-card:hover .art-image img {
+            transform: scale(1.05);
+        }
+        
+        .art-info {
+            padding: 20px;
+        }
+        
+        .art-title {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        
+        .art-artist {
+            color: #6c63ff;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .art-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #ff6584;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        /* Calligraphy Section */
+        .calligraphy {
+            padding: 100px 0;
+            background: rgba(10, 10, 25, 0.8);
+        }
+        
+        .calligraphy-container {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+        
+        .calligraphy-text {
+            flex: 1;
+        }
+        
+        .calligraphy-display {
+            flex: 1;
+            text-align: center;
+            padding: 40px;
+            background: rgba(20, 20, 40, 0.7);
+            border-radius: 20px;
+            border: 2px solid rgba(108, 99, 255, 0.5);
+        }
+        
+        .arabic-text {
+            font-family: 'Scheherazade New', serif;
+            font-size: 3.5rem;
+            color: #fff;
+            line-height: 1.8;
+            text-shadow: 0 0 10px rgba(108, 99, 255, 0.7);
+        }
+        
+        .highlight {
+            color: #ff6584;
+            font-weight: 700;
+        }
+        
+        /* Login Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            width: 90%;
+            max-width: 500px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(108, 99, 255, 0.5);
+            position: relative;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.8rem;
+            color: #ff6584;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+        }
+        
+        .modal-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: #fff;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0d0;
+            font-weight: 600;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            background: rgba(20, 20, 40, 0.7);
+            border: 1px solid rgba(108, 99, 255, 0.5);
+            border-radius: 10px;
+            color: #fff;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #6c63ff;
+            box-shadow: 0 0 10px rgba(108, 99, 255, 0.5);
+        }
+        
+        .modal-footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #b0b0d0;
+        }
+        
+        .modal-footer a {
+            color: #6c63ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* Hacker Page */
+        .hacker-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: #000;
+            z-index: 3000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .hacker-title {
+            font-family: monospace;
+            font-size: 4rem;
+            color: #00ff00;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px #00ff00;
+            animation: glitch 1s linear infinite;
+        }
+        
+        .hacker-subtitle {
+            font-family: monospace;
+            font-size: 1.8rem;
+            color: #ff0000;
+            margin-bottom: 50px;
+            max-width: 800px;
+            line-height: 1.5;
+        }
+        
+        .hacker-text {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #00ffff;
+            margin-bottom: 30px;
+            max-width: 900px;
+            line-height: 1.8;
+        }
+        
+        .terminal {
+            background: #000;
+            border: 2px solid #00ff00;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 5px;
+            margin-top: 30px;
+            text-align: right;
+        }
+        
+        .terminal-line {
+            color: #00ff00;
+            margin-bottom: 10px;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+        
+        /* Footer */
+        footer {
+            background: rgba(5, 5, 15, 0.95);
+            padding: 60px 0 30px;
+            margin-top: 100px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.5rem;
+            margin-bottom: 25px;
+            color: #fff;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: #6c63ff;
+            bottom: 0;
+            right: 0;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #b0b0d0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: #6c63ff;
+            padding-right: 10px;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        /* Animations */
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .calligraphy-container {
+                flex-direction: column;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .arabic-text {
+                font-size: 2.8rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .nav-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .hacker-title {
+                font-size: 2.5rem;
+            }
+        }
+        
+        /* Large file simulation styles */
+        .large-file-simulation {
+            display: none;
+            height: 0;
+            overflow: hidden;
+        }
+        
+        /* Rat simulation */
+        .rat-simulation {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(255, 101, 132, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 101, 132, 0.3);
+            font-size: 0.9rem;
+            max-width: 300px;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-palette"></i>
+                </div>
+                <div class="logo-text">أرت جاليري</div>
+            </div>
+            
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="#home">الرئيسية</a></li>
+                    <li><a href="#featured">أعمال مميزة</a></li>
+                    <li><a href="#calligraphy">الخط العربي</a></li>
+                    <li><a href="#artists">الفنانين</a></li>
+                    <li><a href="#about">عن الموقع</a></li>
+                    <li><a href="#contact">اتصل بنا</a></li>
+                </ul>
+            </nav>
+            
+            <div class="header-actions">
+                <button class="btn btn-login" id="loginBtn">تسجيل الدخول</button>
+                <button class="btn btn-signup">انشاء حساب</button>
+            </div>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h1 class="hero-title">معرض الفنون الرقمي الأول</h1>
+            <p class="hero-subtitle">اكتشف مجموعة فريدة من الأعمال الفنية والخط العربي من فنانين حول العالم. انضم إلى مجتمعنا وابدأ رحلتك الفنية اليوم.</p>
+            <button class="btn btn-signup" style="padding: 15px 40px; font-size: 1.2rem;">اكتشف المجموعة</button>
+        </div>
+    </section>
+    
+    <!-- Featured Art Section -->
+    <section class="featured" id="featured">
+        <div class="container">
+            <h2 class="section-title">أعمال فنية مميزة</h2>
+            <div class="art-grid">
+                <!-- Artwork 1 -->
+                <div class="art-card">
+                    <div class="art-image">
+                        <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="لوحة فنية تجريدية">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">الكون الداخلي</h3>
+                        <span class="art-artist">فاطمة الزهراء</span>
+                        <div class="art-price">
+                            <span>5,200 ر.س</span>
+                            <i class="fas fa-heart" style="color: #ff6584;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Artwork 2 -->
+                <div class="art-card">
+                    <div class="art-image">
+                        <img src="https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="لوحة خط عربي">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">بسم الله الرحمن الرحيم</h3>
+                        <span class="art-artist">أحمد الخطاط</span>
+                        <div class="art-price">
+                            <span>8,500 ر.س</span>
+                            <i class="fas fa-heart" style="color: #ccc;"></i>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Artwork 3 -->
+                <div class="art-card">
+                    <div class="art-image">
+                        <img src="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="لوحة فنية حديثة">
+                    </div>
+                    <div class="art-info">
+                        <h3 class="art-title">ألوان الصحراء</h3>
+                        <span class="art-artist">خالد الفني</span>
+                        <div class="art-price">
+                            <span>6,800 ر.س</span>
+                            <i class="fas fa-heart" style="color: #ff6584;"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Calligraphy Section -->
+    <section class="calligraphy" id="calligraphy">
+        <div class="container calligraphy-container">
+            <div class="calligraphy-text">
+                <h2 class="section-title" style="text-align: right;">فن الخط العربي</h2>
+                <p style="font-size: 1.3rem; margin-bottom: 25px; color: #b0b0d0;">
+                    الخط العربي هو فن وتصميم الكتابة في مختلف اللغات التي تستخدم الحروف العربية. يتميز الخط العربي بمرونته ومقدرته على التشكل والتداخل مع الزخرفة.
+                </p>
+                <p style="font-size: 1.1rem; color: #a0a0c0;">
+                    نقدم في معرضنا مجموعة فريدة من أعمال الخط العربي التقليدية والحديثة، من خط النسخ والثلث إلى الخط الديواني والكوفي. كل قطعة فنية تعبر عن روح الثقافة العربية والإسلامية.
+                </p>
+                <button class="btn btn-signup" style="margin-top: 30px;">استكشاف المزيد</button>
+            </div>
+            
+            <div class="calligraphy-display">
+                <div class="arabic-text">
+                    <span class="highlight">ال</span>فن <span class="highlight">هو</span> لغة<br>
+                    <span class="highlight">ال</span>روح <span class="highlight">ال</span>تي<br>
+                    <span class="highlight">تعبر</span> عما لا<br>
+                    <span class="highlight">تستطيع</span> الكلمات<br>
+                    <span class="highlight">التعبير</span> عنه
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Login Modal -->
+    <div class="modal-overlay" id="loginModal">
+        <div class="modal">
+            <div class="close-modal" id="closeModal">&times;</div>
+            <h2 class="modal-title">تسجيل الدخول</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="username">اسم المستخدم أو البريد الإلكتروني</label>
+                    <input type="text" id="username" class="form-control" placeholder="أدخل اسم المستخدم أو البريد الإلكتروني" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">كلمة المرور</label>
+                    <input type="password" id="password" class="form-control" placeholder="أدخل كلمة المرور" required>
+                </div>
+                
+                <div class="form-group">
+                    <button type="submit" class="btn btn-signup" style="width: 100%; padding: 15px;">تسجيل الدخول</button>
+                </div>
+            </form>
+            
+            <div class="modal-footer">
+                <p>ليس لديك حساب؟ <a href="#">انشاء حساب جديد</a></p>
+                <p><a href="#">نسيت كلمة المرور؟</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Hacker Page -->
+    <div class="hacker-container" id="hackerPage">
+        <h1 class="hacker-title">!!! تحذير !!!</h1>
+        <p class="hacker-subtitle">لقد اكتشفنا محاولة غير مصرح بها للوصول إلى النظام</p>
+        <p class="hacker-text">
+            نظام الحماية الخاص بنا قد اكتشف محاولة دخول غير مصرح بها. لقد تم تسجيل عنوان IP الخاص بك وموقعك الجغرافي.
+            <br><br>
+            <span style="color: #ff0000; font-weight: bold;">بما أنك تحاول اختراق الموقع، نحن نتحداك!</span>
+            <br><br>
+            <span style="color: #ffff00;">يبدو أنك تعتقد أنك قادر على اختراق أنظمتنا المتطورة. هيا حاول!</span>
+        </p>
+        
+        <div class="terminal">
+            <div class="terminal-line">[System Alert]: Unauthorized access attempt detected</div>
+            <div class="terminal-line">[Security Protocol]: Activating defense mechanisms</div>
+            <div class="terminal-line">[IP Trace]: Tracking source... 192.168.1.105</div>
+            <div class="terminal-line">[Location]: Riyadh, Saudi Arabia</div>
+            <div class="terminal-line">[Action]: Logging activity and notifying administrators</div>
+            <div class="terminal-line">[Message]: <span style="color: #ff0000;">!!! YALLA HAAWIL THAKERNI AL'AN !!!</span></div>
+        </div>
+        
+        <button class="btn btn-signup" id="backBtn" style="margin-top: 40px; padding: 15px 40px; font-size: 1.2rem;">العودة إلى الموقع</button>
+    </div>
+    
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>أرت جاليري</h3>
+                    <p style="color: #b0b0d0; margin-bottom: 20px;">منصة رائدة لعرض وبيع الأعمال الفنية والخط العربي من فنانين حول العالم.</p>
+                    <div style="display: flex; gap: 15px; font-size: 1.5rem;">
+                        <a href="#" style="color: #6c63ff;"><i class="fab fa-twitter"></i></a>
+                        <a href="#" style="color: #6c63ff;"><i class="fab fa-instagram"></i></a>
+                        <a href="#" style="color: #6c63ff;"><i class="fab fa-facebook"></i></a>
+                        <a href="#" style="color: #6c63ff;"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>روابط سريعة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">الرئيسية</a></li>
+                        <li><a href="#featured">الأعمال المميزة</a></li>
+                        <li><a href="#calligraphy">الخط العربي</a></li>
+                        <li><a href="#artists">الفنانين</a></li>
+                        <li><a href="#about">عن الموقع</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>الدعم والمساعدة</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">الأسئلة الشائعة</a></li>
+                        <li><a href="#">سياسة الخصوصية</a></li>
+                        <li><a href="#">شروط الاستخدام</a></li>
+                        <li><a href="#">اتصل بنا</a></li>
+                        <li><a href="#">الدعم الفني</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>اشترك في النشرة البريدية</h3>
+                    <p style="color: #b0b0d0; margin-bottom: 20px;">ابق على اطلاع بآخر الأعمال الفنية والعروض الحصرية.</p>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="بريدك الإلكتروني" style="margin-bottom: 15px;">
+                        <button class="btn btn-signup" style="width: 100%;">اشتراك</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>جميع الحقوق محفوظة &copy; 2023 أرت جاليري. تم إنشاء هذا الموقع لأغراض تعليمية وتجريبية.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Rat Simulation -->
+    <div class="rat-simulation">
+        <strong>نظام R.A.T النشط</strong><br>
+        نظام التحكم عن بعد (RAT) نشط وجاهز للعمل.
+        <div style="font-size: 0.8rem; color: #ff6584; margin-top: 5px;">
+            <i class="fas fa-shield-alt"></i> الحماية: نشطة
+        </div>
+    </div>
+    
+    <!-- Large file simulation (hidden) -->
+    <div class="large-file-simulation">
+        <!-- This section simulates large files to increase HTML size -->
+        <?php
+        // In a real PHP file, we could generate large content
+        // For HTML simulation, we'll use JavaScript to generate content
+        ?>
+    </div>
 
+    <script>
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeModal = document.getElementById('closeModal');
+        const loginForm = document.getElementById('loginForm');
+        const hackerPage = document.getElementById('hackerPage');
+        const backBtn = document.getElementById('backBtn');
+        
+        // Open Login Modal
+        loginBtn.addEventListener('click', function() {
+            loginModal.style.display = 'flex';
+        });
+        
+        // Close Login Modal
+        closeModal.addEventListener('click', function() {
+            loginModal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside
+        loginModal.addEventListener('click', function(e) {
+            if (e.target === loginModal) {
+                loginModal.style.display = 'none';
+            }
+        });
+        
+        // Handle Login Form Submission
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            // Check if any input is filled (triggers hacker page)
+            if (username.trim() !== '' || password.trim() !== '') {
+                // Show hacker page
+                loginModal.style.display = 'none';
+                hackerPage.style.display = 'flex';
+                
+                // Add some effects
+                const terminalLines = document.querySelectorAll('.terminal-line');
+                terminalLines.forEach((line, index) => {
+                    line.style.opacity = '0';
+                    setTimeout(() => {
+                        line.style.transition = 'opacity 0.5s';
+                        line.style.opacity = '1';
+                    }, index * 500);
+                });
+            } else {
+                alert('يرجى ملء بيانات التسجيل');
+            }
+        });
+        
+        // Handle back button from hacker page
+        backBtn.addEventListener('click', function() {
+            hackerPage.style.display = 'none';
+        });
+        
+        // Simulate large file content to increase HTML size
+        function generateLargeContent() {
+            const largeContentDiv = document.querySelector('.large-file-simulation');
+            let content = '';
+            
+            // Generate a large amount of text to simulate big files
+            const loremIpsum = `فن الخط العربي هو فن وتصميم الكتابة في مختلف اللغات التي تستخدم الحروف العربية. يتميز الخط العربي بمرونته ومقدرته على التشكل والتداخل مع الزخرفة. يكتب الخط العربي من اليمين إلى اليسار، ويتكون من 28 حرفًا أساسيًا. تستخدم بعض الحروف نقاطًا تميزها عن غيرها، وتكتب بعض الحروف بشكل مختلف حسب موقعها من الكلمة.
+            
+            للخط العربي تاريخ طريق يمتد لأكثر من 1400 عام. تطور الخط العربي من النقوش العربية البسيطة في شبه الجزيرة العربية إلى أشكال فنية معقدة في جميع أنحاء العالم الإسلامي. يشمل الخط العربي مجموعة متنوعة من الخطوط، لكل منها خصائصه واستخداماته المميزة.
+            
+            من أشهر أنواع الخط العربي: الخط الكوفي، خط النسخ، الخط الثلث، الخط الديواني، الخط الفارسي، خط الرقعة، والخط المغربي. لكل من هذه الخطوط خصائصه الفنية وتاريخه الخاص.
+            
+            يستخدم الخط العربي اليوم في العديد من التطبيقات الفنية والزخرفية، من لوحات الخط التقليدية إلى التصميم الجرافيكي الحديث. كما يستخدم الخط العربي في العمارة الإسلامية، حيث يزين المساجد والمباني التاريخية بالنقوش القرآنية والأدعية.
+            
+            تعلم الخط العربي يتطلب سنوات من الممارسة تحت إشراف خطاط متمرس. يجب على المتعلم أن يبدأ بإتقان أساسيات كل خط، ثم يتقدم إلى الأشكال الأكثر تعقيدًا. يستخدم الخطاطون أدوات خاصة مثل القصب والمحابر والأحبار الطبيعية لتحقيق أفضل النتائج.
+            
+            في العصر الرقمي، أصبح الخط العربي جزءًا من التصميم الجرافيكي والطباعة الرقمية. تم تطوير العديد من الخطوط الرقمية التي تحاكي الخطوط التقليدية، مما يسمح باستخدام الخط العربي في وسائل الإعلام الحديثة والمواقع الإلكترونية والتطبيقات.
+            
+            يعتبر الخط العربي أحد أهم أشكال التعبير الفني في الثقافة الإسلامية، حيث يجمع بين الجمال الروحي والمهارة التقنية. فهو ليس مجرد وسيلة للكتابة، بل هو تعبير عن الهوية الثقافية والإيمان الديني.
+            
+            اليوم، هناك اهتمام متجدد بالخط العربي كفن حي. تقام معارض الخط العربي في جميع أنحاء العالم، وتتنافس المسابقات الدولية على أفضل الأعمال الخطية. كما تقدم الجامعات والمؤسسات التعليمية دورات وبرامج متخصصة في تعليم الخط العربي.
+            
+            مستقبل الخط العربي يبدو مشرقًا مع دمج التقنيات الحديثة. يستخدم الخطاطون اليوم برامج الحاسوب واللوحات الرقمية لإنشاء أعمال فنية تجمع بين التقاليد والابتكار. كما يظهر الخط العربي في الفنون المعاصرة، حيث يدمج مع وسائط فنية أخرى مثل التصوير الفوتوغرافي والنحت.
+            
+            الخلاصة أن الخط العربي هو تراث حي يتطور باستمرار. فهو يمثل جسرًا بين الماضي والحاضر، ويواصل إلهام الفنانين والمصممين في جميع أنحاء العالم.`;
+            
+            // Repeat the text multiple times to increase size
+            for (let i = 0; i < 50; i++) {
+                content += `<p style="display:none">${loremIpsum}</p>`;
+            }
+            
+            largeContentDiv.innerHTML = content;
+        }
+        
+        // Generate large content when page loads
+        window.addEventListener('load', function() {
+            generateLargeContent();
+            
+            // Add animation to art cards
+            const artCards = document.querySelectorAll('.art-card');
+            artCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.8s, transform 0.8s';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+        
+        // Add keyboard listener to trigger hacker page from anywhere
+        document.addEventListener('keydown', function(e) {
+            // If user types anything after page load, show hacker page
+            if (e.key.length === 1 && !loginModal.style.display === 'flex') {
+                // Show hacker page
+                hackerPage.style.display = 'flex';
+                
+                // Add some effects
+                const terminalLines = document.querySelectorAll('.terminal-line');
+                terminalLines.forEach((line, index) => {
+                    line.style.opacity = '0';
+                    setTimeout(() => {
+                        line.style.transition = 'opacity 0.5s';
+                        line.style.opacity = '1';
+                    }, index * 500);
+                });
+            }
+        });
+        
+        // Simulate security system monitoring
+        console.log(`
+        ============================================
+        نظام الحماية النشط - أرت جاليري
+        ============================================
+        الإصدار: 3.2.1
+        الحالة: نشط ومستعد
+        التهديدات المكتشفة: 0
+        النشاط الأخير: ${new Date().toLocaleString('ar-SA')}
+        ============================================
+        `);
+    </script>
+</body>
+</html>
